@@ -9,19 +9,20 @@ class PyProperties(object):
     properties = {}
 
     def __init__(self, file_location: str = os.getcwd()):
-        self.properties_file = '/'.join([file_location, self.properties_file])
+        self.properties_file = '/'.join([file_location.replace('\\', '/'), self.properties_file])
         self.properties = tomlkit.load(open(self.properties_file))[self.properties_group] if os.path.exists(self.properties_file) else {}
-        pass
 
     def __getattr__(self, __name: str) -> Optional[str]:
-        if __name in self.properties.keys():
+        if __name in ["properties_file", "properties_group", "poperties"]:
+            return super(PyProperties, self).__getattribute__(__name)
+        elif __name in self.properties.keys():
             return self.properties[__name]
         else:
             return None
         
     def __setattr__(self, __name: str, __value: Any) -> None:
         if __name in ["properties_file", "properties_group", "properties"]:
-            pass
+            super(PyProperties, self).__setattr__(__name)
         else:
             self.properties[__name] = str(__value)
 
