@@ -1,5 +1,5 @@
 # PyProperties
-PPyProperties is a Python module that helps you easily read and write save-state data.
+PyProperties is a Python module that helps you easily read and write save-state data.
 
 ## Cloning
 To clone the repository use the following command:
